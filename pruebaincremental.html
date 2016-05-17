@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Prueba incremental</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery -->
+    <script src="jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="jquery/bootstrap.min.js"></script>
+    <script src="jquery/bootbox.min.js"></script>
+
+    <style type="text/css">
+    body {
+  /*padding-top: 40px;
+  padding-bottom: 40px;*/
+  background-color: #fff;
+}
+</style>
+<script type="text/javascript">
+var score = 0;
+var autoincrement = 0;
+
+$(document).ready(function() {
+  setInterval(gameLoop, 1000);
+});
+
+function incrementar(n) {
+  score += n;
+  refresh();
+}
+
+function refresh() {
+  $('#score').html(score);
+  $('#porsegundo').html(autoincrement);
+}
+
+function gameLoop() {
+  score += autoincrement;
+  refresh();
+}
+
+function buyResource(n) {
+  switch (n) {
+    case 1:
+      if (score >= 50) {
+        autoincrement += 5;
+        score -= 50;
+      }
+    break;
+
+    case 2:
+      if (score >= 500) {
+        autoincrement += 50;
+        score -= 500;
+      }
+    break;
+
+    case 3:
+      if (score >= 50000) {
+        autoincrement += 5000;
+        score -= 50000;
+      }
+    break;
+  }
+
+  refresh();
+}
+
+function testSum() {
+  incrementar(new Number($('#testscore').val()));
+}
+</script>
+  </head>
+
+  <body>
+
+    <?php //include('navbarapp.php'); ?>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>Prueba incremental</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <p>Recursos: <span id="score">0</span></p>
+        <p>Por segundo: <span id="porsegundo">0</span></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <a href="javascript:incrementar(1)" class="btn btn-primary">Click!</a>
+        <a href="javascript:buyResource(1)" class="btn btn-primary">Recurso 1</a>
+        <a href="javascript:buyResource(2)" class="btn btn-primary">Recurso 2</a>
+        <a href="javascript:buyResource(3)" class="btn btn-primary">Recurso 3</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="well">
+          <h3>Testing</h3>
+          <input name="testscore" id="testscore" type="number" value="1000" class="form-control">
+          <a href="javascript:testSum()" class="btn btn-primary">Sumar</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  </body>
+</html>
