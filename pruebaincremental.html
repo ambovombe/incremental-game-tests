@@ -34,6 +34,45 @@
   padding-bottom: 40px;*/
   background-color: #fff;
 }
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(50px);
+  }
+}
+
+@keyframes animacionScore {
+  0% {
+    transform: scale(0.5);
+  }
+  25% {
+    transform: translateY(-30px) scale(2);
+  }
+  100% {
+    transform: translateY(-100px) scale(1);
+  }
+}
+
+@keyframes animacionScore2 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: translateY(-80px);
+  }
+}
+
+.textoScore{
+  animation: animacionScore 2s linear;
+}
 </style>
 <script type="text/javascript">
 var score = 0;
@@ -56,6 +95,7 @@ function refresh() {
 function gameLoop() {
   score += autoincrement;
   refresh();
+  mostrarTexto();
 }
 
 function buyResource(n) {
@@ -87,6 +127,26 @@ function buyResource(n) {
 
 function testSum() {
   incrementar(new Number($('#testscore').val()));
+}
+
+textoMostradoId = 0;
+
+function mostrarTexto() {
+  var idactual = "textoMostrado" + textoMostradoId;
+  var textoParaMostrar = "<p id='" + idactual + "' class='textoScore' style='position:absolute; top:300px; left:300px;'>1 点</table>";
+
+  $('body').append(textoParaMostrar);
+  setTimeout(function(){
+    $("#" + idactual).remove();
+  }, 2000);
+
+  textoMostradoId++;
+}
+
+function eliminarTexto(t) {
+  setTimeout(function(texto) {
+    $('#textoMostrado' + texto).css("background", "red");
+  }, 1000);
 }
 </script>
   </head>
